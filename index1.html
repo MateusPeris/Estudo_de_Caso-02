@@ -3,13 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <title>Gestão de Funcionários</title>
-  <style>
-    table, th, td {
-      border: 1px solid black;
-      border-collapse: collapse;
-      padding: 6px;
-    }
-  </style>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <h1>Cadastro de Funcionários</h1>
@@ -37,6 +31,14 @@
     <tbody></tbody>
   </table>
 
-  <script src="script3.js"></script>
+  <h2>Relatórios</h2>
+    <button onclick="listarSalariosAltos()">Salários > R$ 5000</button>
+    <button onclick="mostrarMediaSalarial()">Média Salarial</button>
+    <button onclick="listarCargosUnicos()">Cargos Únicos</button>
+    <button onclick="listarNomesMaiusculos()">Nomes em Maiúsculo</button>
+
+<div id="relatorio-output" style="margin-top: 15px;"></div>
+
+<script src="script4.js"></script>
 </body>
 </html>

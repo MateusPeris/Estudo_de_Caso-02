@@ -106,3 +106,44 @@ const buscarPorNome = nome =>
 // Buscar por cargo
 const buscarPorCargo = cargo =>
   funcionarios.filter(f => f.getCargo().toLowerCase() === cargo.toLowerCase());
+
+  const output = document.getElementById('relatorio-output');
+
+// Relatório 1: Salários > R$ 5000
+const listarSalariosAltos = () => {
+const lista = funcionarios
+.filter(f => f.getSalario() > 5000)
+.map(f => f.toString());
+
+output.innerHTML = lista.length > 0
+? `<strong>Funcionários com salário > R$ 5000:</strong><br>${lista.join('<br>')}`
+: "Nenhum funcionário com salário acima de R$ 5000.";
+};
+
+// Relatório 2: Média Salarial
+const mostrarMediaSalarial = () => {
+if (funcionarios.length === 0) {
+output.innerHTML = "Não há funcionários cadastrados.";
+return;
+}
+
+const total = funcionarios.reduce((acc, f) => acc + f.getSalario(), 0);
+const media = total / funcionarios.length;
+
+output.innerHTML = `<strong>Média Salarial:</strong> R$ ${media.toFixed(2)}`;
+};
+
+// Relatório 3: Cargos únicos (sem repetição)
+const listarCargosUnicos = () => {
+const cargos = funcionarios.map(f => f.getCargo());
+const unicos = [...new Set(cargos)];
+
+output.innerHTML = `<strong>Cargos únicos:</strong> ${unicos.join(', ')}`;
+};
+
+// Relatório 4: Nomes em maiúsculo
+const listarNomesMaiusculos = () => {
+const nomes = funcionarios.map(f => f.getNome().toUpperCase());
+
+output.innerHTML = `<strong>Nomes em maiúsculo:</strong><br>${nomes.join('<br>')}`;
+};
