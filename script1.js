@@ -6,21 +6,32 @@ class Funcionario {
     this.salario = salario;
   }
 
-  getNome() { return this.nome; }
-  setNome(nome) { this.nome = nome; }
+  /* 
+  // Função tradicional
+funcionarios.forEach(function(f) {
+  console.log(f.nome);
+});
 
-  getIdade() { return this.idade; }
-  setIdade(idade) { this.idade = idade; }
+// Arrow function
+funcionarios.forEach(f => {
+  console.log(f.nome);
+});
 
-  getCargo() { return this.cargo; }
-  setCargo(cargo) { this.cargo = cargo; }
+*/
 
-  getSalario() { return this.salario; }
-  setSalario(salario) { this.salario = salario; }
+  getNome = () => this.nome;
+  setNome = nome => this.nome = nome;
 
-  toString() {
-    return `${this.nome}, ${this.idade} anos, ${this.cargo}, R$ ${this.salario}`;
-  }
+  getIdade = () => this.idade;
+  setIdade = idade => this.idade = idade;
+
+  getCargo = () => this.cargo;
+  setCargo = cargo => this.cargo = cargo;
+
+  getSalario = () => this.salario;
+  setSalario = salario => this.salario = salario;
+
+  toString = () => `${this.nome}, ${this.idade} anos, ${this.cargo}, R$ ${this.salario}`;
 }
 
 const funcionarios = [];
@@ -28,7 +39,7 @@ const form = document.getElementById('form-funcionario');
 const tabelaBody = document.querySelector('#tabela-funcionarios tbody');
 const indiceEdicao = document.getElementById('indice-edicao');
 
-form.addEventListener('submit', function (event) {
+form.addEventListener('submit', (event) => {
   event.preventDefault();
 
   const nome = document.getElementById('nome').value;
@@ -38,25 +49,23 @@ form.addEventListener('submit', function (event) {
   const indice = parseInt(indiceEdicao.value);
 
   if (indice >= 0) {
-    // Editar funcionário existente
-    let funcionario = funcionarios[indice];
-    funcionario.setNome(nome);
-    funcionario.setIdade(idade);
-    funcionario.setCargo(cargo);
-    funcionario.setSalario(salario);
+    let f = funcionarios[indice];
+    f.setNome(nome);
+    f.setIdade(idade);
+    f.setCargo(cargo);
+    f.setSalario(salario);
     indiceEdicao.value = -1;
   } else {
-    // Novo cadastro
-    const novoFuncionario = new Funcionario(nome, idade, cargo, salario);
-    funcionarios.push(novoFuncionario);
+    funcionarios.push(new Funcionario(nome, idade, cargo, salario));
   }
 
   form.reset();
   atualizarTabela();
 });
 
-function atualizarTabela() {
+const atualizarTabela = () => {
   tabelaBody.innerHTML = '';
+
   funcionarios.forEach((f, index) => {
     const row = document.createElement('tr');
     row.innerHTML = `
@@ -71,18 +80,29 @@ function atualizarTabela() {
     `;
     tabelaBody.appendChild(row);
   });
-}
+};
 
-function editarFuncionario(index) {
+// Funções com arrow functions
+const editarFuncionario = (index) => {
   const f = funcionarios[index];
   document.getElementById('nome').value = f.getNome();
   document.getElementById('idade').value = f.getIdade();
   document.getElementById('cargo').value = f.getCargo();
   document.getElementById('salario').value = f.getSalario();
   indiceEdicao.value = index;
-}
+};
 
-function excluirFuncionario(index) {
+const excluirFuncionario = (index) => {
   funcionarios.splice(index, 1);
   atualizarTabela();
-}
+};
+
+// Exemplos de busca usando arrow functions (lambda)
+
+// Buscar por nome (case insensitive)
+const buscarPorNome = nome =>
+  funcionarios.find(f => f.getNome().toLowerCase() === nome.toLowerCase());
+
+// Buscar por cargo
+const buscarPorCargo = cargo =>
+  funcionarios.filter(f => f.getCargo().toLowerCase() === cargo.toLowerCase());
